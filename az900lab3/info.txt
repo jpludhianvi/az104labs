@@ -1,0 +1,107 @@
+Steps
+Step 1: Create a Virtual Network
+Navigate to Azure Portal:
+
+Open your web browser and go to Azure Portal.
+Create a Virtual Network:
+
+In the left-hand menu, click on Create a resource.
+In the Search the Marketplace box, type Virtual Network and select it.
+Click on Create.
+Configure the Virtual Network Basics:
+
+Subscription: Select your subscription.
+Resource Group: Create a new resource group named LabVNetRG.
+Name: Enter LabVNet.
+Region: Select a region close to your location (e.g., East US).
+Configure the Address Space:
+
+In the IP Addresses tab, under Address space, enter 10.1.0.0/16.
+Configure the Subnet:
+
+In the Subnets section, click on + Add subnet.
+Subnet name: Enter Frontend.
+Subnet address range: Enter 10.1.1.0/24.
+Click on Add.
+Create the Virtual Network:
+
+Review and create the virtual network by clicking Review + create, then Create.
+Step 2: Add Additional Subnets
+Navigate to the Virtual Network:
+
+Go to Resource groups, select LabVNetRG.
+Click on LabVNet.
+Add Backend Subnet:
+
+In the Settings section, click on Subnets.
+Click on + Subnet.
+Subnet name: Enter Backend.
+Subnet address range: Enter 10.1.2.0/24.
+Click on Add.
+Add Database Subnet:
+
+Repeat the steps to add another subnet.
+Subnet name: Enter Database.
+Subnet address range: Enter 10.1.3.0/24.
+Click on Add.
+Step 3: Configure Network Security Groups
+Create Network Security Groups (NSGs):
+
+In the left-hand menu, click on Create a resource.
+Type Network Security Group and select it.
+Click on Create.
+Configure NSG for Frontend Subnet:
+
+Subscription: Select your subscription.
+Resource Group: Select LabVNetRG.
+Name: Enter FrontendNSG.
+Region: Select the same region as your virtual network.
+Click Review + create, then Create.
+Configure NSG for Backend Subnet:
+
+Repeat the steps to create another NSG.
+Name: Enter BackendNSG.
+Region: Select the same region as your virtual network.
+Click Review + create, then Create.
+Step 4: Associate NSGs with Subnets
+Navigate to the Frontend Subnet:
+
+Go to Resource groups, select LabVNetRG.
+Click on LabVNet, then Subnets.
+Click on the Frontend subnet.
+Associate FrontendNSG:
+
+Under Network security group, click on None, select FrontendNSG, and click Save.
+Navigate to the Backend Subnet:
+
+Repeat the steps to associate BackendNSG with the Backend subnet.
+Step 5: Configure NSG Rules
+Configure FrontendNSG Rules:
+
+Go to Resource groups, select LabVNetRG.
+Click on FrontendNSG.
+Click on Inbound security rules, then Add.
+Add Rule to Allow HTTP Traffic:
+
+Source: Any.
+Source port ranges: *.
+Destination: Any.
+Destination port ranges: 80.
+Protocol: TCP.
+Action: Allow.
+Priority: 100.
+Name: Enter AllowHTTP.
+Click Add.
+Configure BackendNSG Rules:
+
+Repeat the steps to add a rule in BackendNSG to allow traffic on port 1433 for SQL Server.
+Verification
+Verify Subnet Configuration:
+
+Ensure that all subnets (Frontend, Backend, Database) are created within LabVNet.
+Check that FrontendNSG is associated with the Frontend subnet.
+Check that BackendNSG is associated with the Backend subnet.
+Verify NSG Rules:
+
+Verify that FrontendNSG has a rule allowing HTTP traffic on port 80.
+Verify that BackendNSG has a rule allowing SQL Server traffic on port 1433.
